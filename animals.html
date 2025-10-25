@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Hewan - MENGGALA RANCH</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Variabel CSS dari kode Anda untuk konsistensi */
+        :root {
+            --main-color: #fefefe;
+            --black: #ffffff;
+            --white: #4fa520;
+            --light-black: #388012;
+            --light-white: rgb(255, 247, 247);
+            --dark-bg: rgb(255, 255, 255);
+            --light-bg: #21bf3b;
+            --border: .1rem solid var(--black);
+            --box-shadow: 0 .5rem 1rem rgb(23, 117, 39);
+        }
+        body {
+        background: url("DAUN 1.jpeg") no-repeat center center fixed;
+        background-size: cover;
+        }
+        /* Aturan Dasar dari kode Anda */
+        * {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            border: none;
+            text-decoration: none;
+            text-transform: capitalize;
+        }
+
+        html {
+            font-size: 62.5%;
+            overflow-x: hidden;
+            background-color: var(--light-white); /* Latar belakang untuk halaman ini */
+        }
+        
+        section {
+            padding: 5rem 10%;
+        }
+
+        .heading-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 6rem;
+            text-transform: uppercase;
+            color: var(--white); /* Menggunakan warna hijau dari tema Anda */
+            text-shadow: 2px 2px 4px rgb(6, 22, 25);
+        }
+
+        /* Header (disesuaikan agar konsisten) */
+        .header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: var(--white);
+            display: flex;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header .logo {
+            font-size: 2.5rem;
+            color: var(--black);
+            font-weight: 700;
+        }
+        .header .navbar a {
+            font-size: 2rem;
+            margin-left: 2rem;
+            color: var(--black);
+        }
+        .header .navbar a:hover {
+            color: var(--main-color);
+        }
+
+        /* ======================================= */
+        /* CSS UNTUK GRID HEWAN (CARD) */
+        /* ======================================= */
+        .animals-container {
+            padding: 2rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .animal-card {
+            background: var(--main-color);
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid var(--white);
+        }
+
+        .animal-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0, 160, 0, 0.4);
+        }
+
+        .animal-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .animal-card h3 {
+            margin: 15px 0 5px;
+            color: var(--light-black);
+            font-size: 2.2rem;
+        }
+
+        .animal-card p {
+            padding: 0 15px 15px;
+            font-size: 1.4rem;
+            color: #666;
+            min-height: 4.2em; /* Atur tinggi minimum agar semua card rata */
+        }
+
+        .details-button {
+            background-color: var(--white);
+            color: var(--main-color);
+            border: none;
+            padding: 12px 25px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.6rem;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .details-button:hover {
+            background-color: var(--light-black);
+            transform: scale(1.05);
+        }
+
+        /* ======================================= */
+        /* CSS KHUSUS UNTUK POP-UP (MODAL) */
+        /* ======================================= */
+
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 10000; /* Prioritas tinggi */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.8); 
+            padding-top: 50px;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--main-color);
+            margin: 5% auto; 
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px; 
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: slideDown 0.4s ease-out;
+        }
+
+        .modal-content h2 {
+            color: var(--white);
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--white);
+            padding-bottom: 10px;
+        }
+
+        .modal-content img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-content p, .modal-content ul {
+            font-size: 1.6rem;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .modal-content ul {
+            list-style-type: disc;
+            margin-left: 25px;
+            padding-left: 0;
+        }
+
+        .close-button {
+            color: #ff4d4d;
+            float: right;
+            font-size: 35px;
+            font-weight: bold;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            transition: color 0.2s;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #cc0000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes slideDown {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+    </style>
+</head>
+<body>
+
+    <section class="header">
+        <a href="home.html" class="logo">MENGGALA RANCH KEMBALI</a>
+        <nav class="navbar">
+            <a href="menu.html">Wisata</a>
+            <a href="book.html">Pesan</a>
+            <a href="about.html">Tentang Kami</a>
+        </nav>
+        <div id="menu-btn" class="fas fa-bars"></div>
+    </section>
+
+    <section class="animals-container">
+        <h1 class="heading-title">Jelajahi Fauna Kami</h1>
+        <p style="text-align: center; font-size: 1.8rem; color: #ffffff; margin-top: -2rem; margin-bottom: 4rem;">Klik "Lihat Selengkapnya" untuk detail menarik setiap hewan!</p>
+
+        <div class="gallery-grid">
+            
+            <div class="animal-card">
+                <img src="DOMBA 1.jpeg" alt="Domba">
+                <h3>Domba / Sheep</h3>
+                <p>Hewan Mamalia Pemakan Rumput Yang Dikenal Karena Bulunya Yang Tebal Dan lembut. Hidup Berkelompok Dan Sering Dijadikan Sumber Wol Serta Daging </p>
+                <button class="details-button" data-modal-target="modal1">Lihat Selengkapnya</button>
+            </div>
+
+            <div class="animal-card">
+                <img src="AYAM PEGAR HIJAU.jpeg" alt="Ayam Pegar Hijau">
+                <h3>Ayam Pegar Hijau / Green Pheasant</h3>
+                <p>Kenalin nih, Ayam Hutan Yang Berasal Dari Negeri Tibet, Memiliki Warna Bulu Yang Sangat Cantik Bukan?"</p>
+                <button class="details-button" data-modal-target="modal2">Lihat Selengkapnya</button>
+            </div>
+
+            <div class="animal-card">
+                <img src="IKAN MAS 1.jpeg" alt="Ikan Mas">
+                <h3>Ikan Mas / Gold fish</h3>
+                <p>Ikan Mas adalah ikan hias yang terkenal dengan warna keemasannya yang berkilau dan gerakannya yang anggun di dalam air. Ikan ini menjadi simbol keberuntungan dan ketenangan, sering dipelihara di kolam atau akuarium karena keindahan serta sifatnya yang jinak. 🌟💧</p>
+                <button class="details-button" data-modal-target="modal3">Lihat Selengkapnya</button>
+            </div>
+
+            <div class="animal-card">
+                <img src="KALKUN 1.jpeg" alt="Kalkun">
+                <h3>Kalkun / Turkey</h3>
+                <p>Kalkun adalah burung besar yang dikenal karena bulunya yang berwarna-warni dan suara khasnya. Mereka sosial, hidup berkelompok, dan sering menjadi ikon tradisi kuliner di berbagai negara.</p>
+                <button class="details-button" data-modal-target="modal4">Lihat Selengkapnya</button>
+            </div>
+            
+            <div class="animal-card">
+                <img src="BEBEK.jpeg" alt="Bebek">
+                <h3>Bebek / Duck</h3>
+                <p>Bebek adalah burung air yang terkenal dengan suara khas “quack” dan gaya berenangnya yang lincah di permukaan air. Tubuhnya yang bulat dan bulu yang tahan air membuatnya tampak menggemaskan sekaligus gesit saat bergerak di danau atau sungai.</p>
+                <button class="details-button" data-modal-target="modal5">Lihat Selengkapnya</button>
+            </div>
+
+            <div class="animal-card">
+                <img src="MENTOK.jpeg" alt="Mentok">
+                <h3>Mentok / Barbary Duck</h3>
+                <p>Mentok adalah jenis bebek peliharaan yang lincah dan ramah, dikenal karena bulu mengkilap dan suara khasnya yang nyaring</p>
+                <button class="details-button" data-modal-target="modal6">Lihat Selengkapnya</button>
+            </div>
+
+            <div class="animal-card">
+                <img src="ANGSA 1.jpeg" alt="Angsa">
+                <h3>Angsa / Swan</h3>
+                <p>Angsa dikenal sebagai simbol keanggunan dan kesetiaan. Dengan leher panjang melengkung indah dan bulu putih bersih, angsa selalu menjadi pusat perhatian di danau atau taman air. Suaranya yang lembut dan gerakannya yang tenang membuatnya terlihat elegan dan menawan.</p>
+                <button class="details-button" data-modal-target="modal7">Lihat Selengkapnya</button>
+            </div>
+            
+            <div class="animal-card">
+                <img src="MERPATI 1.jpeg" alt="Merpati">
+                <h3>Merpati / Pigeon</h3>
+                <p>Merpati adalah burung yang dikenal karena kemampuan terbang cepat dan orientasi arah yang luar biasa. Burung ini sering menjadi simbol perdamaian dan kesetiaan karena sifatnya yang setia pada pasangan seumur hidup.</p>
+                <button class="details-button" data-modal-target="modal8">Lihat Selengkapnya</button>
+            </div>
+
+            <div class="animal-card">
+                <img src="AYAM AMERIKAN 1.jpeg" alt="Ayam Amerikan silky">
+                <h3>Ayam American Silky / Silkie Chicken</h3>
+                <p>Ayam American Silky adalah jenis ayam hias yang terkenal karena bulunya yang lembut seperti sutra dan kepribadiannya yang tenang. Dengan tampilan unik dan perilaku jinak, ayam ini sering disebut sebagai “si bulu awan yang bisa berjalan”.</p>
+                <button class="details-button" data-modal-target="modal9">Lihat Selengkapnya</button>
+            </div>
+
+            <div class="animal-card">
+                <img src="AYAM JAMBUL 1.jpeg" alt="Ayam jambul">
+                <h3>Ayam Jambul / Crested Chicken</h3>
+                <p>Ayam jambul dikenal karena bulu khas di atas kepalanya yang membentuk seperti mahkota atau jambul besar. Penampilannya yang unik membuat ayam ini tampak anggun, elegan, dan sering dijadikan ayam hias favorit di berbagai negara.</p>
+                <button class="details-button" data-modal-target="modal10">Lihat Selengkapnya</button>
+            </div>
+
+            <div class="animal-card">
+                <img src="path/ke/foto/hewan11-kecil.jpg" alt="Hewan 11">
+                <h3>Rusa Timor</h3>
+                <p>Spesies rusa yang lincah dan beradaptasi baik di berbagai habitat.</p>
+                <button class="details-button" data-modal-target="modal11">Lihat Selengkapnya</button>
+            </div>
+
+            <div class="animal-card">
+                <img src="path/ke/foto/hewan12-kecil.jpg" alt="Hewan 12">
+                <h3>Kasuari</h3>
+                <p>Burung darat besar dengan tanduk di kepala, terkenal agresif.</p>
+                <button class="details-button" data-modal-target="modal12">Lihat Selengkapnya</button>
+            </div>
+
+            <div class="animal-card">
+                <img src="path/ke/foto/hewan13-kecil.jpg" alt="Hewan 13">
+                <h3>Penyu Hijau</h3>
+                <p>Salah satu spesies penyu terbesar, bermigrasi jarak jauh untuk mencari makan.</p>
+                <button class="details-button" data-modal-target="modal13">Lihat Selengkapnya</button>
+            </div>
+            
+            <div class="animal-card">
+                <img src="path/ke/foto/hewan14-kecil.jpg" alt="Hewan 14">
+                <h3>Lumba-Lumba Irawadi</h3>
+                <p>Dolphin air tawar dengan wajah membulat, jarang terlihat di laut terbuka.</p>
+                <button class="details-button" data-modal-target="modal14">Lihat Selengkapnya</button>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>Link Utama</h3>
+                <a href="home.html"> <i class="fas fa-angle-right"></i> Main</a>
+                <a href="menu.html"> <i class="fas fa-angle-right"></i> Wisata</a>
+                <a href="about.html"> <i class="fas fa-angle-right"></i> Tentang kami</a>
+                <a href="package.html"> <i class="fas fa-angle-right"></i> Paket</a>
+                <a href="book.html"> <i class="fas fa-angle-right"></i> Pesan</a>
+
+            <div class="box">
+                <h3>Informasi Kami</h3>
+                <a href="#"> <i class="fas fa-phone"></i> +62811111223 </a>
+                <a href="#"> <i class="fas fa-phone"></i> +628511112225</a>
+                <a href="#"> <i class="fas fa-envelope"></i> murahsenyum@gmail.com </a>
+                <a href="#"> <i class="fas fa-map"></i> Winduaji, Indonesia</a>
+            </div>
+            <div class="box">
+                <h3>Follow Kami</h3>
+                <a href="#"> <i class="fab fa-facebook-f"></i> Facebook </a>
+                <a href="#"> <i class="fab fa-twitter"></i> Twitter </a>
+                <a href="#"> <i class="fab fa-instagram"></i> Instagram </a>
+                <a href="#"> <i class="fab fa-linkedin"></i> Linkedin </a>
+            </div>
+        </div>
+        <div class="credit"> Copyright © <span>RIZKI ALVIN ADI PRATAMA</span> 2025 | All rights reserved </div>
+    </section>
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Domba / Sheep (ovis aries)</h2>
+            <img src="DOMBA 2.jpeg" alt="Foto Domba">
+            
+            <p>domba, gibas atau biri-biri (Ovis aries) adalah mamalia ruminansia peliharaan yang biasanya dipelihara sebagai hewan ternak. Meskipun istilah domba dapat diterapkan pada spesies lain dalam genus Ovis, dalam penggunaan sehari-hari istilah ini hampir selalu mengacu pada domba peliharaan. Seperti semua ruminansia, domba adalah anggota ordo Artiodaktil, hewan berkuku genap. Berjumlah lebih dari satu miliar, domba domestik juga merupakan spesies domba yang paling banyak jumlahnya.</p>
+            <ul>
+                <li>Habitat: wilayah yang memiliki padang rumput atau daerah yang cukup luas untuk mencari makan. Mereka sering kali ditemukan di pegunungan atau dataran tinggi karena ketahanan mereka terhadap kondisi cuaca yang dingin.</li>
+                <li>Makanan Utama: Rumput Segar, Daun Petai Cina atau Lamtoro, Daun Hui atau Daun Ubi Jalar, Daun Suuk atau Daun Kacang Tanah</li>
+                <li>Fakta Unik: 1. Domba adalah Hewan Pertama yang Didomestikasi 2. Kemampuan Mengenali Wajah 3. Penglihatan 360 Derajat 4. Memori yang Baik 5. Emosi yang Kompleks</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Ayam Pegar Hijau (Phasianus versicolor)</h2>
+            <img src="AYAM PEGAR HIJAU 2.jpeg" alt="Foto Detail Ayam Pegar Hijau">
+            
+            <p>Burung pegar hijau adalah burung omnivora yang hanya ditemukan di kepulauan Jepang. Burung ini merupakan burung nasional Jepang dan memegang peranan penting dalam budaya lokal. Burung pegar hijau selatan jantan, memiliki bulu hijau tua di dada, leher, mantel, dan panggul.</p>
+            <ul>
+                <li>Habitat: Biasanya hidup di hutan tropis, padang rumput, dan area berbukit di Asia Tenggara, terutama di wilayah Indonesia dan Thailand.</li>
+                <li>Makanan Utama: Serangga kecil, biji-bijian, serta tunas tumbuhan muda. Kadang juga memakan buah-buahan hutan.</li>
+                <li>Fakta Unik: Warna bulunya dapat berubah kilau tergantung arah cahaya matahari, membuatnya tampak seperti burung yang dilapisi permata hidup! 🌿✨</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Ikan Mas (Cyprynus Caprio)</h2>
+            <img src="IKAN MAS 2.jpeg" alt="Foto Detail Ikan Mas">
+            
+            <p>Ikan mas adalah salah satu ikan air tawar yang paling dikenal dan banyak dipelihara di seluruh dunia. Memiliki sisik yang berkilau, biasanya berwarna oranye keemasan, meskipun ada juga varietas warna lain seperti putih, hitam, atau campuran. Ikan mas dikenal karena adaptabilitasnya yang tinggi dan kecerdasannya; mereka bisa mengenali pemilik dan menanggapi rangsangan tertentu. Ikan ini sering dijadikan ikan hias di kolam taman, ikan konsumsi, maupun untuk lomba ikan mas hias. Ikan mas juga memiliki nilai budaya di beberapa negara, misalnya sebagai simbol keberuntungan di Asia Timur.</p>
+            <ul>
+                <li>Habitat: Biasanya hidup di kolam, danau, atau sungai dengan air tenang dan bersuhu sejuk. Dalam perawatan manusia, ikan ini sering dipelihara di akuarium atau kolam hias. 🌿💧</li>
+                <li>Makanan Utama: Pelet ikan, cacing kecil, lumut air, serta serpihan tumbuhan air.</li>
+                <li>Fakta Unik: Ikan Mas memiliki ingatan yang cukup baik—mereka dapat mengenali wajah pemiliknya dan bahkan belajar trik sederhana seperti mengikuti jari di kaca akuarium! 🧠✨</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Kalkun / Turkey (Meleagris) </h2>
+            <img src="KALKUN 2.jpeg" alt="Foto Detail Kalkun">
+            <p>Kalkun adalah burung besar yang berasal dari Amerika Utara dan dikenal karena bulunya yang berwarna-warni serta kemampuan terbang yang terbatas. Jantan memiliki bulu ekor yang besar dan kipas, serta kepala dan leher yang berwarna merah, biru, dan putih, sedangkan betina cenderung lebih kecil dan berwarna kusam untuk menyamarkan diri dari predator. Kalkun jantan menggunakan tampilan bulu ekornya dan suara khas (gobble) untuk menarik perhatian betina saat musim kawin. Burung ini cerdas, waspada, dan hidup dalam kelompok sosial.</p>
+            <ul>
+                <li>Habitat: Kalkun liar biasanya ditemukan di hutan campuran, hutan terbuka, padang rumput dekat hutan, dan lahan pertanian di Amerika Utara. Mereka lebih menyukai area yang menyediakan perlindungan dari predator seperti pepohonan atau semak belukar, serta sumber makanan yang cukup. Kalkun domestik biasanya dipelihara di peternakan dan memerlukan kandang luas dengan akses ke area terbuka.</li>
+                <li>Makanan Utama: Kalkun adalah omnivora. Mereka memakan biji-bijian, jagung, kacang-kacangan, rumput, daun, buah, serangga, cacing, dan kadang hewan kecil. Kalkun liar biasanya mencari makan di pagi dan sore hari, sering berkeliaran di tanah sambil mengais makanan. Kalkun domestik biasanya diberi pakan berupa campuran biji-bijian dan pelet khusus.</li>
+                <li>Fakta Unik: Kalkun jantan dapat mengembangkan bulu ekor seperti kipas saat menampilkan ritual kawin.Suara gobble kalkun jantan bisa terdengar hingga 1 km di hutan terbuka.Kalkun liar mampu terbang jarak pendek hingga 100 meter, meskipun biasanya mereka berjalan atau berlari.Kalkun memiliki penglihatan yang sangat baik, termasuk penglihatan warna, sehingga dapat mendeteksi predator dari jarak jauh.Mereka memiliki kemampuan berkomunikasi melalui lebih dari 20 suara berbeda untuk memberi peringatan, berinteraksi dengan kelompok, atau menarik pasangan.</li>
+            </ul>
+        </div>
+    </div>
+    <div id="modal5" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Bebek (Anas platyrhynchos)</h2>
+            <img src="BEBEK2.jpeg" alt="Foto Detail Bebek">
+            <p>Bebek adalah burung yang sering dijumpai di perairan tawar, dan juga banyak dibudidayakan manusia untuk telur dan dagingnya. Mereka memiliki kaki berselaput yang memudahkan berenang, paruh lebar untuk menyaring makanan dari air, dan bulu yang melindungi tubuh dari air dan dingin. Bebek jantan dan betina biasanya berbeda warna; jantan memiliki bulu yang lebih cerah untuk menarik betina, sedangkan betina berwarna kusam agar tersamar saat bertelur. Selain berenang, bebek juga bisa terbang dengan jarak sedang, dan sebagian spesies melakukan migrasi musiman.</p>
+            <ul>
+                <li>Habitat: Bebek hidup di danau, sungai, rawa, sawah, dan perairan dangkal lainnya. Mereka juga bisa beradaptasi dengan lingkungan perkotaan, seperti kolam taman dan area pertanian.</li>
+                <li>Makanan Utama: Bebek adalah omnivora. Mereka memakan biji-bijian, rumput, serangga, cacing, ikan kecil, dan tanaman air. Saat mencari makan, bebek sering mengais dasar perairan dengan paruhnya.</li>
+                <li>Fakta Unik: Bebek memiliki penglihatan yang luas dan bisa melihat hampir 360 derajat.Paruh bebek dilapisi jaring halus untuk menyaring makanan dari air.Beberapa spesies bebek migrasi ribuan kilometer untuk mencari iklim yang lebih hangat.Bebek bisa mengatur suhu tubuhnya dengan baik, sehingga tahan di air dingin.Suara “quack” jantan tidak bisa menggema, berbeda dengan banyak suara burung lainnya.</li>
+            </ul>
+        </div>
+    </div>
+    <div id="modal6" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Mentok (Anas platyrhynchos domesticus.)</h2>
+            <img src="MENTOK2.jpeg" alt="Foto Detail Mentok">
+            <p>Mentok merupakan unggas air yang banyak dipelihara untuk telur dan daging. Tubuhnya relatif besar, paruh lebar, dan kaki berselaput sehingga cocok berenang. Mentok mudah beradaptasi di kolam maupun sawah, dan termasuk hewan sosial yang senang bergerombol.</p>
+            <ul>
+                <li>Habitat: Kolam, danau, sungai dangkal, sawah, dan peternakan unggas.</li>
+                <li>Makanan Utama: Rumput air, biji-bijian, serangga, cacing, dan sisa makanan manusia (sekadarnya).</li>
+                <li>Fakta Unik: Mentok bisa mengenali pemiliknya.Suara mentok bisa terdengar hingga jarak 100 meter.Mentok jantan biasanya lebih aktif dan vokal daripada betina.</li>
+            </ul>
+        </div>
+    </div>
+    <div id="modal7" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2> Angsa (Cygnus olor)</h2>
+            <img src="ANGSA 2..jpeg" alt="Foto Detail Angsa">
+            <p>Angsa adalah burung air berukuran besar yang termasuk dalam keluarga Anatidae, bersama bebek dan itik. Mereka memiliki leher panjang, tubuh besar, dan sayap kuat yang mampu membawa mereka terbang jauh. Bulu angsa biasanya putih bersih, meski beberapa spesies memiliki warna abu-abu atau hitam.Angsa dikenal sebagai hewan yang sangat setia terhadap pasangannya — biasanya hanya memiliki satu pasangan seumur hidup. Selain itu, angsa juga sangat protektif terhadap wilayah dan anak-anaknya. Saat merasa terancam, mereka dapat mengembangkan sayap dan mengeluarkan suara mendesis untuk menakuti predator</p>
+            <ul>
+                <li>Habitat : Angsa biasanya hidup di danau, sungai besar, rawa-rawa, dan kolam dengan vegetasi air yang cukup. Mereka banyak ditemukan di daerah beriklim sedang seperti Eropa, Asia, dan sebagian Amerika Utara.</li>
+                <li>Makanan Utama: Angsa adalah herbivora. Mereka memakan rumput air, daun, batang tanaman air, biji-bijian, dan kadang serangga kecil atau moluska. Paruh panjangnya membantu mereka menjangkau tanaman di bawah air.</li>
+                <li>Fakta Unik: Angsa bisa terbang dengan kecepatan hingga 90 km/jam saat migrasi.Anak angsa disebut cygnet, dan akan tetap bersama induknya selama beberapa bulan sebelum mandiri.Dalam budaya banyak negara, angsa melambangkan cinta, kesetiaan, dan keindahan</li>
+            </ul>
+        </div>
+    </div>
+    <div id="modal8" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Merpati (Columba livia domestica)</h2>
+            <img src="MERPATI 2.jpeg" alt="Foto MERPATI">
+            <p>Merpati merupakan salah satu jenis burung paling dikenal dan tersebar luas di dunia. Tubuhnya ramping dengan bulu halus berwarna abu-abu, putih, atau campuran keduanya. Mereka memiliki kemampuan navigasi alami yang sangat tajam, mampu pulang ke sarang dari jarak puluhan bahkan ratusan kilometer — itulah sebabnya merpati sering digunakan sebagai burung pos di masa lalu.Merpati juga memiliki insting sosial yang kuat, sering hidup berkelompok, dan dapat beradaptasi di hampir semua lingkungan, dari perkotaan hingga pedesaan. Selain itu, mereka dikenal memiliki kecerdasan tinggi untuk mengenali wajah manusia dan pola tertentu.</p>
+            <ul>
+                <li>Habitat: Merpati dapat ditemukan di berbagai tempat seperti perkotaan, taman, tebing, dan ladang terbuka. Mereka membuat sarang dari ranting dan rumput di tempat yang tinggi atau terlindung.</li>
+                <li>Makanan Utama: Merpati termasuk granivora (pemakan biji-bijian). Mereka memakan jagung, gandum, padi, serta sesekali serangga kecil atau remah makanan manusia.</li>
+                <li>Fakta Unik:  Merpati dapat mengenali wajah manusia yang akrab bagi mereka.Mampu kembali ke sarang dari jarak lebih dari 1.000 km.Memiliki penglihatan yang sangat tajam dan bisa melihat sinar ultraviolet.Merpati jantan dan betina bergantian mengerami telur, simbol kerja sama dan kesetiaan.Burung ini telah dijinakkan manusia selama lebih dari 5.000 tahun.</li>
+            </ul>
+        </div>
+    </div>
+    <div id="modal9" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Ayam American Silky (Gallus gallus domesticus)</h2>
+            <img src="AYAM AMERICA SILKY.jpeg" alt="Foto Ayam American Silky">
+            <p>Ayam American Silky merupakan ras ayam hias yang berasal dari Tiongkok, namun populer di seluruh dunia karena keunikan bulunya yang menyerupai kapas atau sutra halus. Bulu mereka sebenarnya tidak memiliki kaitan antar-serat (barbules), membuat teksturnya lembut dan mengembang. Selain itu, ayam ini memiliki kulit, tulang, dan daging berwarna hitam kebiruan karena kondisi genetik yang disebut fibromelanosis.American Silky dikenal sangat jinak, ramah, dan mudah berinteraksi dengan manusia, sehingga banyak dijadikan hewan peliharaan atau ayam pameran. Ukurannya relatif kecil dan tubuhnya padat, dengan jambul bulu di kepala menyerupai topi kecil yang khas.</p>
+            <ul>
+                <li>Habitat: Dipelihara di pekarangan, peternakan kecil, atau kandang ayam hias. Mereka menyukai lingkungan yang teduh, bersih, dan tidak lembap berlebihan.</li>
+                <li>Makanan Utama: Pakan ayam biasa, biji-bijian (seperti jagung dan beras merah), sayuran segar, cacing, serangga kecil, serta suplemen kalsium untuk menjaga kekuatan bulu dan cangkang telur.</li>
+                <li>Fakta Unik: Memiliki lima jari di setiap kaki, berbeda dengan ayam biasa yang hanya empat.Kulit, daging, dan tulangnya berwarna hitam kebiruan.Dikenal sebagai “ibu terbaik” karena sangat penyayang dan pandai mengerami telur, bahkan telur dari spesies lain.Bulunyatidak tahan air, sehingga tidak bisa terbang dan harus dijaga agar tidak terlalu basah.Sering dianggap simbol keberuntungan di beberapa budaya Asia.</li>
+            </ul>
+        </div>
+    </div>
+    <div id="modal10" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Ayam Jambul (Gallus gallus domesticus (var. crested))</h2>
+            <img src="AYAM JAMBUL 2.jpeg" alt="Foto Detail Bekantan">
+            <p>Ayam jambul merupakan salah satu varietas dari ayam peliharaan yang memiliki ciri khas berupa jambul tebal di kepala, hasil dari mutasi genetik alami yang menyebabkan pertumbuhan bulu berlebih di bagian tengkorak. Ukuran jambulnya bervariasi tergantung ras — seperti Ayam Poland, Sultan, atau Houdan.Selain tampilannya yang eksotis, ayam ini dikenal jinak, mudah beradaptasi, dan memiliki perilaku yang tenang. Beberapa ras ayam jambul bahkan terkenal ramah terhadap manusia, sehingga sering dijadikan hewan peliharaan di taman atau kebun edukasi.</p>
+            <ul>
+                <li>Habitat: Ayam jambul umumnya dipelihara di lingkungan peternakan, taman hias, atau pekarangan rumah. Mereka lebih menyukai area terbuka dengan tempat berteduh dan tanah untuk mengais makanan.</li>
+                <li>Makanan Utama:Pakan ayam jambul tidak jauh berbeda dengan ayam pada umumnya, yaitu biji-bijian, jagung giling, dedak, serangga kecil, dan sayuran hijau.</li>
+                <li>Fakta Unik: Jambul besar ayam ini berasal dari mutasi gen bernama crest gene yang menyebabkan tengkorak sedikit menonjol di bagian atas.Beberapa jenis ayam jambul seperti Polish Chicken memiliki penglihatan terbatas karena bulu jambulnya menutupi mata.Ayam jambul sering dijadikan simbol keanggunan dalam kontes kecantikan unggas di Eropa.Meskipun penampilannya mewah, ayam ini cukup tahan terhadap berbagai kondisi cuaca.</li>
+            </ul>
+        </div>
+    </div>
+    <div id="modal11" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Rusa Timor (Rusa timorensis) - Detail</h2>
+            <img src="path/ke/foto/rusa-detail.jpg" alt="Foto Detail Rusa Timor">
+            <p>Rusa Timor adalah spesies yang tangguh dan tersebar luas, mereka adalah herbivora yang penting dalam rantai makanan lokal.</p>
+            <ul>
+                <li>Habitat: Kalkun liar biasanya ditemukan di hutan campuran, hutan terbuka, padang rumput dekat hutan, dan lahan pertanian di Amerika Utara. Mereka lebih menyukai area yang menyediakan perlindungan dari predator seperti pepohonan atau semak belukar, serta sumber makanan yang cukup. Kalkun domestik biasanya dipelihara di peternakan dan memerlukan kandang luas dengan akses ke area terbuka.</li>
+                <li>Makanan Utama: Kalkun adalah omnivora. Mereka memakan biji-bijian, jagung, kacang-kacangan, rumput, daun, buah, serangga, cacing, dan kadang hewan kecil. Kalkun liar biasanya mencari makan di pagi dan sore hari, sering berkeliaran di tanah sambil mengais makanan. Kalkun domestik biasanya diberi pakan berupa campuran biji-bijian dan pelet khusus.</li>
+                <li>Fakta Unik: Kalkun jantan dapat mengembangkan bulu ekor seperti kipas saat menampilkan ritual kawin.Suara gobble kalkun jantan bisa terdengar hingga 1 km di hutan terbuka.Kalkun liar mampu terbang jarak pendek hingga 100 meter, meskipun biasanya mereka berjalan atau berlari.Kalkun memiliki penglihatan yang sangat baik, termasuk penglihatan warna, sehingga dapat mendeteksi predator dari jarak jauh.Mereka memiliki kemampuan berkomunikasi melalui lebih dari 20 suara berbeda untuk memberi peringatan, berinteraksi dengan kelompok, atau menarik pasangan.</li>
+            </ul>
+        </div>
+    </div>
+    <div id="modal12" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Kasuari (Casuarius spp.) - Detail</h2>
+            <img src="path/ke/foto/kasuari-detail.jpg" alt="Foto Detail Kasuari">
+            <p>Kasuari adalah burung yang tidak bisa terbang, terkenal karena cakar kuatnya. Mereka adalah penyebar benih penting di hutan Papua.</p>
+            <ul>
+                <li>Habitat: Kalkun liar biasanya ditemukan di hutan campuran, hutan terbuka, padang rumput dekat hutan, dan lahan pertanian di Amerika Utara. Mereka lebih menyukai area yang menyediakan perlindungan dari predator seperti pepohonan atau semak belukar, serta sumber makanan yang cukup. Kalkun domestik biasanya dipelihara di peternakan dan memerlukan kandang luas dengan akses ke area terbuka.</li>
+                <li>Makanan Utama: Kalkun adalah omnivora. Mereka memakan biji-bijian, jagung, kacang-kacangan, rumput, daun, buah, serangga, cacing, dan kadang hewan kecil. Kalkun liar biasanya mencari makan di pagi dan sore hari, sering berkeliaran di tanah sambil mengais makanan. Kalkun domestik biasanya diberi pakan berupa campuran biji-bijian dan pelet khusus.</li>
+                <li>Fakta Unik: Kalkun jantan dapat mengembangkan bulu ekor seperti kipas saat menampilkan ritual kawin.Suara gobble kalkun jantan bisa terdengar hingga 1 km di hutan terbuka.Kalkun liar mampu terbang jarak pendek hingga 100 meter, meskipun biasanya mereka berjalan atau berlari.Kalkun memiliki penglihatan yang sangat baik, termasuk penglihatan warna, sehingga dapat mendeteksi predator dari jarak jauh.Mereka memiliki kemampuan berkomunikasi melalui lebih dari 20 suara berbeda untuk memberi peringatan, berinteraksi dengan kelompok, atau menarik pasangan.</li>
+            </ul>
+        </div>
+    </div>
+    <div id="modal13" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Penyu Hijau (Chelonia mydas) - Detail</h2>
+            <img src="path/ke/foto/penyu-detail.jpg" alt="Foto Detail Penyu Hijau">
+            <p>Penyu Hijau dewasa sebagian besar adalah herbivora yang memakan lamun dan alga. Mereka dapat menempuh ribuan kilometer untuk bertelur.</p>
+            <ul>
+                <li>Habitat: Kalkun liar biasanya ditemukan di hutan campuran, hutan terbuka, padang rumput dekat hutan, dan lahan pertanian di Amerika Utara. Mereka lebih menyukai area yang menyediakan perlindungan dari predator seperti pepohonan atau semak belukar, serta sumber makanan yang cukup. Kalkun domestik biasanya dipelihara di peternakan dan memerlukan kandang luas dengan akses ke area terbuka.</li>
+                <li>Makanan Utama: Kalkun adalah omnivora. Mereka memakan biji-bijian, jagung, kacang-kacangan, rumput, daun, buah, serangga, cacing, dan kadang hewan kecil. Kalkun liar biasanya mencari makan di pagi dan sore hari, sering berkeliaran di tanah sambil mengais makanan. Kalkun domestik biasanya diberi pakan berupa campuran biji-bijian dan pelet khusus.</li>
+                <li>Fakta Unik: Kalkun jantan dapat mengembangkan bulu ekor seperti kipas saat menampilkan ritual kawin.Suara gobble kalkun jantan bisa terdengar hingga 1 km di hutan terbuka.Kalkun liar mampu terbang jarak pendek hingga 100 meter, meskipun biasanya mereka berjalan atau berlari.Kalkun memiliki penglihatan yang sangat baik, termasuk penglihatan warna, sehingga dapat mendeteksi predator dari jarak jauh.Mereka memiliki kemampuan berkomunikasi melalui lebih dari 20 suara berbeda untuk memberi peringatan, berinteraksi dengan kelompok, atau menarik pasangan.</li>
+            </ul>
+        </div>
+    </div>
+    <div id="modal14" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Lumba-Lumba Irawadi (Orcaella brevirostris) - Detail</h2>
+            <img src="path/ke/foto/lumba-irawadi-detail.jpg" alt="Foto Detail Lumba-Lumba Irawadi">
+            <p>Lumba-Lumba Irawadi memiliki dahi yang membulat dan tidak memiliki paruh yang menonjol. Mereka sering ditemukan di perairan dekat pantai dan muara sungai.</p>
+            <ul>
+                <li>Habitat: Kalkun liar biasanya ditemukan di hutan campuran, hutan terbuka, padang rumput dekat hutan, dan lahan pertanian di Amerika Utara. Mereka lebih menyukai area yang menyediakan perlindungan dari predator seperti pepohonan atau semak belukar, serta sumber makanan yang cukup. Kalkun domestik biasanya dipelihara di peternakan dan memerlukan kandang luas dengan akses ke area terbuka.</li>
+                <li>Makanan Utama: Kalkun adalah omnivora. Mereka memakan biji-bijian, jagung, kacang-kacangan, rumput, daun, buah, serangga, cacing, dan kadang hewan kecil. Kalkun liar biasanya mencari makan di pagi dan sore hari, sering berkeliaran di tanah sambil mengais makanan. Kalkun domestik biasanya diberi pakan berupa campuran biji-bijian dan pelet khusus.</li>
+                <li>Fakta Unik: Kalkun jantan dapat mengembangkan bulu ekor seperti kipas saat menampilkan ritual kawin.Suara gobble kalkun jantan bisa terdengar hingga 1 km di hutan terbuka.Kalkun liar mampu terbang jarak pendek hingga 100 meter, meskipun biasanya mereka berjalan atau berlari.Kalkun memiliki penglihatan yang sangat baik, termasuk penglihatan warna, sehingga dapat mendeteksi predator dari jarak jauh.Mereka memiliki kemampuan berkomunikasi melalui lebih dari 20 suara berbeda untuk memberi peringatan, berinteraksi dengan kelompok, atau menarik pasangan.</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script>
+        // JS untuk Mobile Nav (dari kode Anda)
+        let menu = document.querySelector('#menu-btn');
+        let navbar = document.querySelector('.header .navbar');
+
+        menu.onclick = () => {
+            menu.classList.toggle('fa-times');
+            navbar.classList.toggle('active');
+        };
+
+        window.onscroll = () => {
+            menu.classList.remove('fa-times');
+            navbar.classList.remove('active');
+        };
+        
+        // JS untuk Pop-up Modal
+        const detailButtons = document.querySelectorAll('.details-button');
+        const closeButtons = document.querySelectorAll('.close-button');
+
+        // Fungsi Tampilkan Modal
+        detailButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const modalId = this.getAttribute('data-modal-target');
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.style.display = 'block';
+                }
+            });
+        });
+
+        // Fungsi Sembunyikan Modal (tombol X)
+        closeButtons.forEach(span => {
+            span.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                if (modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+
+        // Fungsi Sembunyikan Modal (klik di luar konten)
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>

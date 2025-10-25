@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wisata - MENGGALA RANCH</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --main-color: #fefefe;
+            --black: #fff;
+            --white: #4fa520;
+            --white: #388012;
+            --light-black: #777;
+            --light-white: #fff9;
+            --dark-bg: rgba(0, 0, 0, .7);
+            --light-bg: #eee;
+            --border: .1rem solid var(--black);
+            --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            --text-shadow: 0 1.5rem 3rem rgba(0, 0, 0, .3);
+        }
+
+        body {
+            background: url("DAUN 1.jpeg") no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        * {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            border: none;
+            text-decoration: none;
+            text-transform: capitalize;
+        }
+
+        html {
+            font-size: 62.5%;
+            overflow-x: hidden;
+        }
+
+        html::-webkit-scrollbar {
+            width: 1rem;
+        }
+
+        html::-webkit-scrollbar-track {
+            background-color: var(--white);
+        }
+
+        html::-webkit-scrollbar-thumb {
+            background-color: var(--main-color);
+        }
+
+        section {
+            padding: 5rem 10%;
+        }
+
+        .heading-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 6rem;
+            text-transform: uppercase;
+            color: var(--black);
+        }
+
+        .heading {
+            background-size: cover !important;
+            background-position: center !important;
+            padding-top: 16rem;
+            padding-bottom: 15rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .heading h1 {
+            font-size: 10rem;
+            text-transform: uppercase;
+            color: var(--white);
+            text-shadow: var(--text-shadow);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--black);
+            margin-top: 1rem;
+            color: var(--white);
+            font-size: 1.7rem;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: .2s linear;
+        }
+
+        .btn:hover {
+            background: var(--main-color);
+            letter-spacing: .2rem;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: var(--white);
+            display: flex;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 10%;
+        }
+
+        .header .logo {
+            font-size: 2.5rem;
+            color: var(--black);
+            font-weight: 700;
+        }
+
+        .header .navbar a {
+            font-size: 2rem;
+            margin-left: 2rem;
+            color: var(--black);
+        }
+
+        .header .navbar a:hover {
+            color: var(--main-color);
+        }
+
+        #menu-btn {
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: var(--black);
+            display: none;
+        }
+
+        .packages .box-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+            gap: 2rem;
+        }
+
+        .packages .box-container .box {
+            border: var(--border);
+            box-shadow: var(--box-shadow);
+            background: var(--white);
+            border-radius: .5rem;
+            overflow: hidden;
+        }
+
+        .packages .box-container .box .image {
+            height: 25rem;
+            overflow: hidden;
+        }
+
+        .packages .box-container .box .image img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            transition: .2s linear;
+        }
+
+        .packages .box-container .box:hover .image img {
+            transform: scale(1.1);
+        }
+
+        .packages .box-container .box .content {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .packages .box-container .box .content h3 {
+            font-size: 2.5rem;
+            color: var(--black);
+        }
+
+        .packages .box-container .box .content p {
+            font-size: 1.5rem;
+            color: var(--light-black);
+            line-height: 2;
+            padding: 1rem 0;
+        }
+
+        .footer {
+            background: var(--light-bg);
+        }
+
+        .footer .box-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+            gap: 3rem;
+        }
+
+        .footer .box-container .box h3 {
+            font-size: 2.2rem;
+            color: var(--black);
+            padding: 1rem 0;
+        }
+
+        .footer .box-container .box a {
+            display: block;
+            font-size: 1.5rem;
+            color: var(--light-black);
+            padding: 1rem 0;
+        }
+
+        .footer .box-container .box a i {
+            color: var(--main-color);
+            padding-right: .5rem;
+        }
+
+        .footer .box-container .box a:hover {
+            color: var(--main-color);
+            padding-left: .5rem;
+        }
+
+        .footer .credit {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: .1rem solid var(--light-black);
+            font-size: 2rem;
+            color: var(--light-black);
+        }
+
+        .footer .credit span {
+            color: var(--main-color);
+            font-weight: bold;
+        }
+
+        @media (max-width:1200px) {
+            section { padding: 3rem 5%; }
+        }
+
+        @media (max-width:991px) {
+            html { font-size: 55%; }
+            section { padding: 3rem 2rem; }
+        }
+
+        @media (max-width:768px) {
+            #menu-btn { display: inline-block; }
+
+            .header .navbar {
+                position: absolute;
+                top: 99%;
+                left: 0;
+                right: 0;
+                background-color: var(--white);
+                border-top: var(--border);
+                padding: 2rem;
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            }
+
+            .header .navbar.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+
+            .header .navbar a {
+                display: block;
+                margin: 2rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width:450px) {
+            html { font-size: 50%; }
+            .heading-title { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <section class="header">
+        <a href="home.html" class="logo">MENGGALA RANCH KEMBALI</a>
+        <nav class="navbar">
+            <a href="menu.html">Wisata</a>
+            <a href="book.html">Pesan</a>
+            <a href="about.html">Tentang Kami</a>
+        </nav>
+        <div id="menu-btn" class="fas fa-bars"></div>
+    </section>
+
+    <!-- Heading -->
+    <div class="heading" style="background:url(image/gambar%208.jpeg) no-repeat">
+        <h1>Daftar Wisata</h1>
+    </div>
+
+    <!-- Packages -->
+    <section class="packages">
+        <h1 class="heading-title">Destinasi Pilihan</h1>
+
+        <div class="box-container">
+            <div class="box">
+                <div class="image">
+                    <img src="image/gambar 6.jpg" alt="">
+                </div>
+                <div class="content">
+                    <h3>Keraton Jogja</h3>
+                    <p>Kunjungi pusat kebudayaan Jawa yang megah dan bersejarah di Yogyakarta.</p>
+                    <a href="book.html" class="btn">Pesan Sekarang</a>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src="image/gambar 7.jpg" alt="">
+                </div>
+                <div class="content">
+                    <h3>Sri Wedari Solo</h3>
+                    <p>Nikmati pertunjukan seni dan budaya tradisional Jawa di taman hiburan bersejarah ini.</p>
+                    <a href="book.html" class="btn">Pesan Sekarang</a>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src="image/gambar 8.jpeg" alt="">
+                </div>
+                <div class="content">
+                    <h3>Kota Solo</h3>
+                    <p>Rasakan keramahan dan kekayaan budaya kota Solo yang menawan hati.</p>
+                    <a href="book.html" class="btn">Pesan Sekarang</a>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src="image/gambar 5.jpg" alt="">
+                </div>
+                <div class="content">
+                    <h3>Tanah Toraja</h3>
+                    <p>Saksikan upacara adat yang khas dan nikmati pemandangan perbukitan hijau memukau.</p>
+                    <a href="book.html" class="btn">Pesan Sekarang</a>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src="KKP/IMG_6662.JPG" alt="">
+                </div>
+                <div class="content">
+                    <h3>Raja Ampat</h3>
+                    <p>Jelajahi surga bawah laut dan gugusan pulau karst yang ikonik di Papua Barat.</p>
+                    <a href="book.html" class="btn">Pesan Sekarang</a>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src="image/gambar-bromo.jpg" alt="">
+                </div>
+                <div class="content">
+                    <h3>Gunung Bromo</h3>
+                    <p>Nikmati pemandangan matahari terbit yang spektakuler dari puncak Gunung Bromo.</p>
+                    <a href="book.html" class="btn">Pesan Sekarang</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>Link Utama</h3>
+                <a href="home.html"><i class="fas fa-angle-right"></i> Main</a>
+                <a href="menu.html"><i class="fas fa-angle-right"></i> Wisata</a>
+                <a href="about.html"><i class="fas fa-angle-right"></i> Perjalanan</a>
+                <a href="book.html"><i class="fas fa-angle-right"></i> Pesan</a>
+            </div>
+
+            <div class="box">
+                <h3>Informasi Kami</h3>
+                <a href="#"><i class="fas fa-phone"></i> +62811111223</a>
+                <a href="#"><i class="fas fa-envelope"></i> murahsenyum@gmail.com</a>
+                <a href="#"><i class="fas fa-map"></i> Winduaji, Indonesia</a>
+            </div>
+
+            <div class="box">
+                <h3>Follow Kami</h3>
+                <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+            </div>
+        </div>
+
+        <div class="credit">
+            Copyright © <span>RIZKI ALVIN ADI PRATAMA</span> 2025 | All rights reserved
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+    <script>
+        let menu = document.querySelector('#menu-btn');
+        let navbar = document.querySelector('.header .navbar');
+
+        menu.onclick = () => {
+            menu.classList.toggle('fa-times');
+            navbar.classList.toggle('active');
+        };
+
+        window.onscroll = () => {
+            menu.classList.remove('fa-times');
+            navbar.classList.remove('active');
+        };
+    </script>
+
+</body>
+</html>
